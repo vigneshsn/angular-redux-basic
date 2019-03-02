@@ -37,7 +37,7 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to angular-redux-basic!');
   });
 
-  it('testing the count of Appcomponent', () => {
+  it('testing the count receives the value', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const componentUnderTest: AppComponent = fixture.debugElement.componentInstance;
 
@@ -56,5 +56,15 @@ describe('AppComponent', () => {
     // .subscribe(actualValues => expect(actualValues).toEqual(expectedVal),
     //     null,
     //     done);
+  });
+
+  it('testing the actions get dispatched when incremented', () => {
+    const actionSpy = spyOn(MockNgRedux.mockInstance, 'dispatch');
+
+    const fixture = TestBed.createComponent(AppComponent);
+    const componentUnderTest: AppComponent = fixture.debugElement.componentInstance;
+
+    componentUnderTest.increment();
+    expect(actionSpy).toHaveBeenCalledWith({type: AppActions.INCREMENT});
   });
 });
